@@ -124,7 +124,7 @@ public class loadfragment extends Fragment implements View.OnClickListener{
                 socket = new Socket(serverAddr, SERVERPORT);
                 Log.i("run","create socket ok");
                 PrintWriter out = null;
-                completeLog="AAAA-CHARL-A1B2C4:FIRST";
+                completeLog="AAAA-CHARL-A1B2C4:NOORDER";
                 RequeteIOBREP req = new RequeteIOBREP(RequeteIOBREP.HANDLE_CONTAINER_OUT, completeLog);
                 try {
                     oos = new ObjectOutputStream(socket.getOutputStream());
