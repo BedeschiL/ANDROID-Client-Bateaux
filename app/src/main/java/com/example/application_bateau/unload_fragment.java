@@ -1,6 +1,5 @@
 package com.example.application_bateau;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,8 +10,6 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
-import com.example.application_bateau.R;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -27,7 +24,7 @@ import java.net.UnknownHostException;
 import ProtocoleIOBREP.ReponseIOBREP;
 import ProtocoleIOBREP.RequeteIOBREP;
 
-public class loadfragment extends Fragment implements View.OnClickListener{
+public class unload_fragment extends Fragment implements View.OnClickListener{
     private Socket socket;
     private String completeLog = null;
     private static final int SERVERPORT = 6666;
@@ -39,8 +36,8 @@ public class loadfragment extends Fragment implements View.OnClickListener{
     @org.jetbrains.annotations.Nullable
     @Override
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-       Log.i("TEST","TEST");
-        View view = inflater.inflate(R.layout.fragment_load, container, false);
+       Log.i("Unloadfrag","Unloadfrag");
+        View view = inflater.inflate(R.layout.fragment_unload, container, false);
         Button clickButton = (Button) view.findViewById(R.id.cont);
         Button clickButtonHangdle = (Button) view.findViewById(R.id.contoff);
         Button clickButtonHandout = (Button) view.findViewById(R.id.endout);
@@ -54,13 +51,13 @@ public class loadfragment extends Fragment implements View.OnClickListener{
         switch(view.getId())
         {
             case R.id.cont:
-                new Thread(new loadfragment.ClientThread1()).start();
+                new Thread(new unload_fragment.ClientThread1()).start();
                 break;
             case R.id.contoff:
-                new Thread(new loadfragment.ClientThread2()).start();
+                new Thread(new unload_fragment.ClientThread2()).start();
                 break;
             case R.id.endout:
-                new Thread(new loadfragment.ClientThread3()).start();
+                new Thread(new unload_fragment.ClientThread3()).start();
                 break;
         }
     }
@@ -71,7 +68,7 @@ public class loadfragment extends Fragment implements View.OnClickListener{
             try {
                 InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
                 socket = new Socket(serverAddr, SERVERPORT);
-                Log.i("run","create socket ok");
+                Log.i("run","create socketGET_CONTAINER");
                 PrintWriter out = null;
                 completeLog="Lourdes:First";
                 RequeteIOBREP req = new RequeteIOBREP(RequeteIOBREP.GET_CONTAINERS, completeLog);
@@ -81,7 +78,7 @@ public class loadfragment extends Fragment implements View.OnClickListener{
                     oos.flush();
                 }
                 catch (IOException e) {
-                    Log.i("Erreur réseau ?" ,e.getMessage());
+                    Log.i("Erreur réseauGET_CONT" ,e.getMessage());
                 }
             } catch (UnknownHostException e1) {
                 e1.printStackTrace();
@@ -95,22 +92,24 @@ public class loadfragment extends Fragment implements View.OnClickListener{
 
                 if(rep.getCode() == ReponseIOBREP.GET_CONTAINER)
                 {
-                    Log.i(""," *** Reponse reçue : Connexion réussie");
-                    Log.i("Contenuerep", rep.getChargeUtile());
+                    if(rep.getChargeUtile()!=null)
+                    Log.i("GET_CONTAINER", rep.getChargeUtile());
+                    else
+                        Log.i("GET_CONTAINER", "Pas de reponse serveur");
                 }
                 else
-                Log.i(""," *** Reponse non : Connexion failed");
-                Log.i("Failcontenu", rep.getChargeUtile());
+
+                Log.i("GET_CONTAINERfail", rep.getChargeUtile());
                 if(rep.getCode() != ReponseIOBREP.GET_CONTAINER) {
                     socket.close();
                     socket = null;
                 }
             }
             catch (ClassNotFoundException e) {
-                Log.i(""," *** erreur classe");
+                Log.i("GET_CONTAINER"," *** erreur classe");
             }
             catch (IOException e) {
-                Log.i(""," *** erreur reseau 0");
+                Log.i("GET_CONTAINER"," *** erreur reseau 0");
             }
         }
     }
@@ -122,8 +121,7 @@ public class loadfragment extends Fragment implements View.OnClickListener{
             try {
                 InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
                 socket = new Socket(serverAddr, SERVERPORT);
-                Log.i("run","create socket ok");
-                PrintWriter out = null;
+                Log.i("run","create socket HANDLE_CONTAINER_OUT");
                 completeLog="AAAA-CHARL-A1B2C4:NOORDER";
                 RequeteIOBREP req = new RequeteIOBREP(RequeteIOBREP.HANDLE_CONTAINER_OUT, completeLog);
                 try {
@@ -145,23 +143,23 @@ public class loadfragment extends Fragment implements View.OnClickListener{
                 rep = (ReponseIOBREP)ois.readObject();
                 if(rep.getCode() == ReponseIOBREP.HANDLE_CONTAINER_OUT)
                 {
-                    Log.i(""," *** Reponse reçue : Connexion réussie");
-                    Log.i("Contenuerep", rep.getChargeUtile());
+
+                    Log.i("HANDLE_CONTAINER_OUT", rep.getChargeUtile());
                 }
                 else
 
-                Log.i(""," *** Reponse non : Connexion failed");
-                Log.i("Failcontenu", rep.getChargeUtile());
+
+                Log.i("CONTAINER_OUTFail", rep.getChargeUtile());
                 if(rep.getCode() != ReponseIOBREP.HANDLE_CONTAINER_OUT) {
                     socket.close();
                     socket = null;
                 }
             }
             catch (ClassNotFoundException e) {
-                Log.i(""," *** erreur classe");
+                Log.i("HANDLE_CONTAINER_OUT"," *** erreur classe");
             }
             catch (IOException e) {
-                Log.i(""," *** erreur reseau 0");
+                Log.i("HANDLE_CONTAINER_OUT"," *** erreur reseau 0");
             }
         }
     }
@@ -169,12 +167,11 @@ public class loadfragment extends Fragment implements View.OnClickListener{
 
         @Override
         public void run() {
-            Log.i("run3"," *r3");
+            Log.i("run3"," END_CONTAINER_OUT");
             try {
                 InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
                 socket = new Socket(serverAddr, SERVERPORT);
-                Log.i("run","create socket ok");
-                PrintWriter out = null;
+                Log.i("run","create socket END_CONTAINER_OUT");
                 completeLog="noneed";
                 RequeteIOBREP req = new RequeteIOBREP(RequeteIOBREP.END_CONTAINER_OUT, completeLog);
                 try {
@@ -183,7 +180,7 @@ public class loadfragment extends Fragment implements View.OnClickListener{
                     oos.flush();
                 }
                 catch (IOException e) {
-                    Log.i("Erreur réseau ?" ,e.getMessage());
+                    Log.i("ErreurEND_CONTAINER_Out" ,e.getMessage());
                 }
             } catch (UnknownHostException e1) {
                 e1.printStackTrace();
@@ -196,23 +193,23 @@ public class loadfragment extends Fragment implements View.OnClickListener{
                 rep = (ReponseIOBREP)ois.readObject();
                 if(rep.getCode() == ReponseIOBREP.END_CONTAINER_OUT)
                 {
-                    Log.i(""," *** Reponse reçue : Connexion réussie");
-                    Log.i("Contenuerep", rep.getChargeUtile());
+
+                    Log.i("END_CONTAINER_OUT", rep.getChargeUtile());
                 }
                 else
 
-                    Log.i(""," *** Reponse non : Connexion failed");
-                Log.i("Failcontenu", rep.getChargeUtile());
+
+                  Log.i("END_CONTAINER_OUT", rep.getChargeUtile());
                 if(rep.getCode() != ReponseIOBREP.END_CONTAINER_OUT) {
                     socket.close();
                     socket = null;
                 }
             }
             catch (ClassNotFoundException e) {
-                Log.i(""," *** erreur classe");
+                Log.i("END_CONTAINER_OUT"," *** erreur classe");
             }
             catch (IOException e) {
-                Log.i(""," *** erreur reseau 0");
+                Log.i("END_CONTAINER_OUT"," *** erreur reseau 0");
             }
         }
     }

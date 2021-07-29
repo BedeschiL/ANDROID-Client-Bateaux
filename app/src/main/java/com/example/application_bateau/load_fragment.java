@@ -24,7 +24,7 @@ import java.net.UnknownHostException;
 import ProtocoleIOBREP.ReponseIOBREP;
 import ProtocoleIOBREP.RequeteIOBREP;
 
-public class home_fragment extends Fragment implements View.OnClickListener {
+public class load_fragment extends Fragment implements View.OnClickListener {
     private Socket socket;
     private String completeLog = null;
     private static final int SERVERPORT = 6666;
@@ -36,9 +36,8 @@ public class home_fragment extends Fragment implements View.OnClickListener {
     @org.jetbrains.annotations.Nullable
     @Override
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.fragment_home, container, false);
-        Button clickButton = (Button) view.findViewById(R.id.boatarriv);
+        View view = inflater.inflate(R.layout.fragment_load, container, false);
+        Button clickButton = (Button) view.findViewById(R.id.handlein);
         clickButton.setOnClickListener(this);
 
 
@@ -47,10 +46,8 @@ public class home_fragment extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-
-        new Thread(new home_fragment.ClientThread()).start();
+        new Thread(new load_fragment.ClientThread()).start();
     }
-
     class ClientThread implements Runnable {
         @Override
         public void run() {
@@ -65,43 +62,42 @@ public class home_fragment extends Fragment implements View.OnClickListener {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            Log.i("run","create socket BOAT_ARRIVED");
+            Log.i("run","create socket HANDLE_CONTAINER_IN");
             PrintWriter out = null;
-            completeLog="BAT1:1-5:4:5:5:AAAA:Paris";
-            RequeteIOBREP req = new RequeteIOBREP(RequeteIOBREP.BOAT_ARRIVED, completeLog);
+            completeLog="pasutil";
+            RequeteIOBREP req = new RequeteIOBREP(RequeteIOBREP.HANDLE_CONTAINER_IN, completeLog);
             try {
                 oos = new ObjectOutputStream(socket.getOutputStream());
                 oos.writeObject(req);
                 oos.flush();
             }
             catch (IOException e) {
-                Log.i("BOAT_ARRIVED erreur" ,e.getMessage());
+                Log.i("HANDLE_CONT_INerreur" ,e.getMessage());
             }
             ReponseIOBREP rep = null;
             try {
                 ois = new ObjectInputStream(socket.getInputStream());
                 rep = (ReponseIOBREP)ois.readObject();
-                if(rep.getCode() == ReponseIOBREP.BOAT_ARRIVED)
+                if(rep.getCode() == ReponseIOBREP.HANDLE_CONTAINER_IN)
                 {
 
-                    Log.i("BOAT_ARRIVED", rep.getChargeUtile());
+                    Log.i("HANDLE_CONTAINER_IN", rep.getChargeUtile());
                 }
                 else
 
 
-                Log.i("BOAT_ARRIVED",  rep.getChargeUtile());
-                if(rep.getCode() != ReponseIOBREP.BOAT_ARRIVED) {
+                    Log.i("HANDLE_CONTAINER_IN",  rep.getChargeUtile());
+                if(rep.getCode() != ReponseIOBREP.HANDLE_CONTAINER_IN) {
                     socket.close();
                     socket = null;
                 }
             }
             catch (ClassNotFoundException e) {
-                Log.i("BOAT_ARRIVED"," *** erreur classe");
+                Log.i("HANDLE_CONTAINER_IN"," *** erreur classe");
             }
             catch (IOException e) {
-                Log.i("BOAT_ARRIVED"," *** erreur reseau 0");
+                Log.i("HANDLE_CONTAINER_IN"," *** erreur reseau 0");
             }
         }
     }
-
 }

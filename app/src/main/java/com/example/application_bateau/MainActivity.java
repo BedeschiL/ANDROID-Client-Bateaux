@@ -85,13 +85,13 @@ public class MainActivity extends AppCompatActivity {
 
                 if(rep.getCode() == ReponseIOBREP.LOGIN_OK)
                 {
-                    Log.i(""," *** Reponse reçue : Connexion réussie");
+
                     Log.i("Contenuerep", rep.getChargeUtile());
                 startActivity(new Intent(MainActivity.this,ChoixActivity.class));
 
                 }
                 else
-                    Log.i(""," *** Reponse non : Connexion failed");
+
                      Log.i("Failcontenu", rep.getChargeUtile());
                 if(rep.getCode() != ReponseIOBREP.LOGIN_OK) {
                     socket.close();

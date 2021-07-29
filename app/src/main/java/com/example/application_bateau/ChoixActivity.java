@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
@@ -38,11 +36,11 @@ public class ChoixActivity extends AppCompatActivity {
                     break;
                 case R.id.item2:
                     Toast.makeText(ChoixActivity.this, "load", Toast.LENGTH_SHORT).show();
-                    selectFrag = new loadfragment();
+                    selectFrag = new unload_fragment();
                     break;
                 case R.id.item3:
                     Toast.makeText(ChoixActivity.this, "unlaod", Toast.LENGTH_SHORT).show();
-                    selectFrag = new unloadfragment();
+                    selectFrag = new load_fragment();
                     break;
 
 
