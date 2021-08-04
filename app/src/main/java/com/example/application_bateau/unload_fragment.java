@@ -1,11 +1,17 @@
 package com.example.application_bateau;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,9 +26,13 @@ import java.io.PrintWriter;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Collections;
 
 import ProtocoleIOBREP.ReponseIOBREP;
 import ProtocoleIOBREP.RequeteIOBREP;
+import de.codecrafters.tableview.TableView;
+import de.codecrafters.tableview.toolkit.SimpleTableDataAdapter;
+import de.codecrafters.tableview.toolkit.SimpleTableHeaderAdapter;
 
 public class unload_fragment extends Fragment implements View.OnClickListener{
     private Socket socket;
@@ -31,6 +41,10 @@ public class unload_fragment extends Fragment implements View.OnClickListener{
     private static final String SERVER_IP = "192.168.1.129";
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
+    private EditText dest;
+    private CheckBox ordre;
+    public static String[] spaceHeader={"Emplacement","Id cont","Arrive","Depart","Destination"};
+    public String[] test = {"test0                         g","test2","test1","test3"};
 
     @Nullable
     @org.jetbrains.annotations.Nullable
@@ -38,12 +52,26 @@ public class unload_fragment extends Fragment implements View.OnClickListener{
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
        Log.i("Unloadfrag","Unloadfrag");
         View view = inflater.inflate(R.layout.fragment_unload, container, false);
+       //DEST POUR GET CONTAINER
         Button clickButton = (Button) view.findViewById(R.id.cont);
+        clickButton.setOnClickListener(this);
+        dest = (EditText) view.findViewById(R.id.destBat);
+        ordre = (CheckBox)  view.findViewById(R.id.trie);
+
+
+       //CONTAINEUR OFF
         Button clickButtonHangdle = (Button) view.findViewById(R.id.contoff);
         Button clickButtonHandout = (Button) view.findViewById(R.id.endout);
         clickButtonHandout.setOnClickListener(this);
-       clickButton.setOnClickListener(this);
+
         clickButtonHangdle.setOnClickListener(this);
+        //TABLEAU
+
+        final TableView<String[]> tableview = (TableView<String[]>) view.findViewById(R.id.tableview);
+        tableview.setHeaderAdapter(new SimpleTableHeaderAdapter(getActivity(),spaceHeader));
+        tableview.setDataAdapter(new SimpleTableDataAdapter(getActivity(), Collections.singletonList(test)));
+
+        tableview.setColumnCount(5);
         return view;
     }
     @Override
@@ -69,8 +97,19 @@ public class unload_fragment extends Fragment implements View.OnClickListener{
                 InetAddress serverAddr = InetAddress.getByName(SERVER_IP);
                 socket = new Socket(serverAddr, SERVERPORT);
                 Log.i("run","create socketGET_CONTAINER");
-                PrintWriter out = null;
-                completeLog="Lourdes:First";
+
+
+                String trie;
+                boolean checked = ordre.isChecked();
+                if(checked)
+                {
+                    trie = "First";
+                }
+                else
+                {
+                    trie = "Random";
+                }
+                completeLog = dest.getText().toString() + ":"+trie;
                 RequeteIOBREP req = new RequeteIOBREP(RequeteIOBREP.GET_CONTAINERS, completeLog);
                 try {
                     oos = new ObjectOutputStream(socket.getOutputStream());
@@ -85,6 +124,10 @@ public class unload_fragment extends Fragment implements View.OnClickListener{
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
+            catch(NullPointerException e)
+            {
+                e.printStackTrace();
+            }
             ReponseIOBREP rep = null;
             try {
                 ois = new ObjectInputStream(socket.getInputStream());
@@ -93,7 +136,29 @@ public class unload_fragment extends Fragment implements View.OnClickListener{
                 if(rep.getCode() == ReponseIOBREP.GET_CONTAINER)
                 {
                     if(rep.getChargeUtile()!=null)
-                    Log.i("GET_CONTAINER", rep.getChargeUtile());
+                    {
+                        String repToParse= rep.getChargeUtile();
+                        Log.i("GET_CONTAINER ok", repToParse);
+                        String[] parse = repToParse.split(":");
+                        if (getActivity() != null) {
+                            getActivity().runOnUiThread(new Runnable() {
+
+                                @Override
+                                public void run() {
+
+
+                                    (new Handler()).postDelayed(this::updateEtat, 3000);
+                                }
+
+                                private void updateEtat() {
+
+                                }
+                            });
+                        }
+
+
+                    }
+
                     else
                         Log.i("GET_CONTAINER", "Pas de reponse serveur");
                 }
