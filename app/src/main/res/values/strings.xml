@@ -2,20 +2,36 @@
     <string name="app_name">Application_bateau</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password</string>
-    <string name="action_sign_in">Sign in or register</string>
-    <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
-    <string name="login_failed">"Login failed"</string>
-    <string name="title_activity_choix_load">ChoixLoad</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="prompt_password">Mot de passe :</string>
+    <string name="action_sign_in">S\'enregistrer ou se connecter</string>
+    <string name="action_sign_in_short">Se connecter</string>
+    <string name="main_welcome">Bienvenue dans l\'application</string>
+    <string name="main_bateau">Bateau</string>
+    <string name="main_login">Connexion</string>
+    <string name="main_login_text">Nom d\'utilisateur :</string>
+    <string name="main_password_text">Mot de passe :</string>
+    <string name="first_fragment_label" translatable="false">first fragment</string>
+    <string name="second_fragment_label" translatable="false">second fragment</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+   <string name="settings_title">Parametres des langues :</string>
+    <string name="settings_fr" translatable="false">FR</string>
+    <string name="settings_de" translatable="false">DE</string>
+    <string name="settings_en" translatable="false">EN</string>
+
+    <string name="home_welcome">Bienvenue</string>
+    <string name="home_boatarrived">Un bateau est arrive ?</string>
+    <string name="home_boatid">Id du bateau :</string>
+    <string name="home_dest">Destination du bateau :</string>
+    <string name="home_socid">Id de la societe : </string>
+    <string name="home_contid">Id du containeur : </string>
+    <string name="home_contwei">Poid du containeur : </string>
+    <string name="home_boatcapa">Capacite du bateau : </string>
+    <string name="home_sendbutt">Envoyer</string>
+
+    <string name="unload_dest">Destination</string>
+    <string name="unload_ordre">Ordre</string>
+    <string name="unload_contid">Id du containeur : </string>
+    <string name="unload_trie">Trie </string>
+    <string name="titlebattoparc">Du bateau au parc</string>
+    <string name="titleparctoboat">Du parc au bateau</string>
 </resources>

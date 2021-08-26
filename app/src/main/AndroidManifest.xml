@@ -13,10 +13,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Application_bateau">
+        <activity android:name=".Settings"></activity>
         <activity android:name=".ChoixActivity"
-           >
-        </activity>
-        <activity android:name=".MainActivity">
+            android:screenOrientation="portrait"
+
+            />
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

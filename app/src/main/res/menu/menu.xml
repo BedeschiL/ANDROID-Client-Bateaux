@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item android:id="@+id/item1"
-        android:icon="@drawable/ic_home"
-        android:title="Home "
-        app:showAsAction="never">
-    </item>
     <item android:id="@+id/item2"
-        android:title="UnLoad"
-        android:icon="@drawable/ic_load"
+        android:icon="@drawable/ic_home"
+        android:title="Bateau"
         app:showAsAction="never">
     </item>
     <item android:id="@+id/item3"
+        android:title="Parc->Boat"
+        android:icon="@drawable/ic_load"
+        app:showAsAction="never">
+    </item>
+    <item android:id="@+id/item4"
         android:icon="@drawable/ic_unload"
-        android:title="Load"
+        android:title="Boat->Parc"
         app:showAsAction="never">
     </item>
 </menu>

@@ -3,7 +3,6 @@ package com.example.application_bateau;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,15 +15,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.application_bateau.socketHanlder.SocketHandler;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
-import java.net.InetAddress;
 import java.net.Socket;
-import java.net.UnknownHostException;
 
 import ProtocoleIOBREP.ReponseIOBREP;
 import ProtocoleIOBREP.RequeteIOBREP;
@@ -43,7 +41,8 @@ public class home_fragment extends Fragment implements View.OnClickListener {
     private EditText poids ;
     private EditText cap ;
     private TextView etat;
-
+    public SocketHandler sHandler;
+    private Button blabla;
 
     @Nullable
     @org.jetbrains.annotations.Nullable
@@ -51,6 +50,7 @@ public class home_fragment extends Fragment implements View.OnClickListener {
     public View onCreateView(@NonNull @NotNull LayoutInflater inflater, @Nullable @org.jetbrains.annotations.Nullable ViewGroup container, @Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
         Button clickButton = (Button) view.findViewById(R.id.boatarriv);
         clickButton.setOnClickListener(this);
         idBat =(EditText)view.findViewById(R.id.idBateau);;
@@ -60,12 +60,16 @@ public class home_fragment extends Fragment implements View.OnClickListener {
         poids =(EditText)view.findViewById(R.id.poids);;
         cap =(EditText)view.findViewById(R.id.capa);;
         etat = (TextView)view.findViewById(R.id.etat);
+
+
+        ois=sHandler.ois;
+        oos=sHandler.oos;
+        socket= SocketHandler.getSocket();
         return view;
     }
 
     @Override
     public void onClick(View view) {
-
         new Thread(new home_fragment.ClientThread()).start();
     }
 
@@ -75,21 +79,6 @@ public class home_fragment extends Fragment implements View.OnClickListener {
         @Override
         public void run() {
 
-
-            InetAddress serverAddr = null;
-            try {
-                serverAddr = InetAddress.getByName(SERVER_IP);
-            } catch (UnknownHostException e) {
-                e.printStackTrace();
-            }
-            try {
-                socket = new Socket(serverAddr, SERVERPORT);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Log.i("run","create socket BOAT_ARRIVED");
-            PrintWriter out = null;
-
             //RECUPERATION DES TEXTES;
 
             String idBatStr = idBat.getText().toString();
@@ -98,10 +87,11 @@ public class home_fragment extends Fragment implements View.OnClickListener {
             String idContStr = idCont.getText().toString();
             String poidsStr = poids.getText().toString();
             String capStr = cap.getText().toString();
+
             completeLog=idBatStr+":"+idSocStr+":"+capStr+":"+poidsStr+":"+idContStr+":"+destStr;
             RequeteIOBREP req = new RequeteIOBREP(RequeteIOBREP.BOAT_ARRIVED, completeLog);
             try {
-                oos = new ObjectOutputStream(socket.getOutputStream());
+
                 oos.writeObject(req);
                 oos.flush();
             }
@@ -110,12 +100,13 @@ public class home_fragment extends Fragment implements View.OnClickListener {
             }
             ReponseIOBREP rep = null;
             try {
-                ois = new ObjectInputStream(socket.getInputStream());
+
                 rep = (ReponseIOBREP)ois.readObject();
                 if(rep.getCode() == ReponseIOBREP.BOAT_ARRIVED)
                 {
 
                     Log.i("BOAT_ARRIVED", rep.getChargeUtile());
+                    //ACCES UI POUR UPDATE
                     if (getActivity() != null) {
                         getActivity().runOnUiThread(new Runnable() {
 
@@ -146,11 +137,6 @@ public class home_fragment extends Fragment implements View.OnClickListener {
                             }
                         });
                     }
-                }
-
-                if(rep.getCode() != ReponseIOBREP.BOAT_ARRIVED) {
-                    socket.close();
-                    socket = null;
                 }
             }
             catch (ClassNotFoundException e) {

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Boat_Application</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password :</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="action_sign_in">Sing in or register</string>
+    <string name="main_welcome">Welcome to the app !</string>
+    <string name="main_bateau">Boat</string>
+    <string name="main_login">Login</string>
+    <string name="main_login_text">Username :</string>
+    <string name="main_password_text">Password :</string>
+    <string name="settings_title">Languages Settings :</string>
+    <string name="home_welcome">Welcome</string>
+    <string name="home_boatarrived">A boat has arrived</string>
+    <string name="home_boatid">Boat id :</string>
+    <string name="home_dest">Destination of the boat :</string>
+    <string name="home_socid">Company\'s id :</string>
+    <string name="home_contid">"Container's id : "</string>
+    <string name="home_contwei">"container weight : "</string>
+    <string name="home_boatcapa">"Boat capacity : "</string>
+    <string name="home_sendbutt">Send</string>
+    <string name="unload_dest">Destination</string>
+    <string name="unload_ordre">Order</string>
+    <string name="unload_contid">"Conainer's id : "</string>
+    <string name="unload_trie">Sort</string>
+    <string name="titlebattoparc">From boat to park</string>
+    <string name="titleparctoboat">From park to boat</string>
+</resources>

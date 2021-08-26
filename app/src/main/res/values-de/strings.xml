@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Application_bateau</string>
+    <string name="action_sign_in_short">Verbinden</string>
+    <string name="action_sign_in">Registrieren</string>
+    <string name="prompt_password">Passwort :</string>
+    <string name="prompt_email">Email</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="main_bateau">Boot</string>
+    <string name="main_login">Einloggen</string>
+    <string name="main_login_text">Nutzername :</string>
+    <string name="main_password_text">Passwort :</string>
+    <string name="main_welcome">Willkommen in der App</string>
+    <string name="settings_title">Spracheinstellungen :</string>
+    <string name="home_welcome">Willkommen</string>
+    <string name="home_boatarrived">Ein Boot ist angekommen</string>
+    <string name="home_boatid">Boot id :</string>
+    <string name="home_dest">Ziel des Bootes :</string>
+    <string name="home_socid">Firmen-ID :</string>
+    <string name="home_contid">"Container-ID  : "</string>
+    <string name="home_contwei">Behältergewicht</string>
+    <string name="home_boatcapa">Bootskapazität :</string>
+    <string name="home_sendbutt">Senden</string>
+    <string name="unload_dest">Ziel</string>
+    <string name="unload_ordre">Befeh</string>
+    <string name="unload_contid">Container-ID :</string>
+    <string name="unload_trie">Sortieren</string>
+    <string name="titlebattoparc">From boat to park</string>
+    <string name="titleparctoboat">From park to boat</string>
+</resources>

@@ -42,6 +42,8 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
     implementation 'androidx.navigation:navigation-ui:2.3.5'
     implementation files('libs/Serveur.jar')
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.preference:preference:1.1.1'
     testImplementation 'junit:junit:4.+'
     implementation 'de.codecrafters.tableview:tableview:2.2.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'

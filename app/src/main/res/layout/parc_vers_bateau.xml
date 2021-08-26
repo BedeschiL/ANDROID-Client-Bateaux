@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/tab"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/backg">
+
+    <TextView
+        android:id="@+id/textdes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center_horizontal"
+        android:text="@string/unload_dest"
+        android:textAlignment="center"
+        android:textColor="#B3660A"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textdes2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="52dp"
+        android:layout_marginLeft="52dp"
+        android:layout_marginTop="4dp"
+        android:gravity="center_horizontal"
+        android:text="@string/unload_ordre"
+        android:textAlignment="center"
+        android:textColor="#B3660A"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/textdes"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/cont"
+        android:layout_width="93dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:text="Get container"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#F1F1F1"
+        android:textSize="8sp"
+        app:layout_constraintStart_toEndOf="@+id/destBat"
+        app:layout_constraintTop_toBottomOf="@+id/trie"
+        app:rippleColor="#FFF7F7" />
+
+    <de.codecrafters.tableview.TableView
+        android:id="@+id/tableview"
+        android:layout_width="362dp"
+        android:layout_height="199dp"
+        android:addStatesFromChildren="false"
+        android:minWidth="400dp"
+        android:minHeight="200dp"
+        android:visibility="visible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cont"
+        app:tableView_headerColor="#B3660A" />
+
+    <EditText
+        android:id="@+id/destBat"
+        android:layout_width="113dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="#F3F3F3"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textdes" />
+
+    <CheckBox
+        android:id="@+id/trie"
+        android:layout_width="63dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:text="@string/unload_trie"
+        android:textColor="#B3660A"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/destBat"
+        app:layout_constraintTop_toBottomOf="@+id/textdes2" />
+
+    <Button
+        android:id="@+id/endout"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="128dp"
+        android:layout_marginLeft="128dp"
+        android:layout_marginTop="8dp"
+        android:text="END "
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/contoff" />
+
+    <EditText
+        android:id="@+id/idContUnload"
+        android:layout_width="111dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textColor="#FFFFFF"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textdes3" />
+
+    <CheckBox
+        android:id="@+id/trieHandle"
+        android:layout_width="64dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/unload_trie"
+        android:textColor="#B3660A"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/idContUnload"
+        app:layout_constraintTop_toBottomOf="@+id/textdes4" />
+
+    <TextView
+        android:id="@+id/handleUpdate"
+        android:layout_width="242dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintTop_toBottomOf="@+id/trieHandle"
+        tools:layout_editor_absoluteX="131dp" />
+
+    <Button
+        android:id="@+id/contoff"
+        android:layout_width="143dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="104dp"
+        android:layout_marginLeft="104dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/titleparctoboat"
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idContUnload" />
+
+    <TextView
+        android:id="@+id/textdes4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:text="@string/unload_ordre"
+        android:textAlignment="center"
+        android:textColor="#B3660A"
+        android:textSize="14sp"
+        app:layout_constraintStart_toEndOf="@+id/textdes3"
+        app:layout_constraintTop_toBottomOf="@+id/tableview"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/textdes3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:text="@string/unload_contid"
+        android:textAlignment="center"
+        android:textColor="#B3660A"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tableview"
+        tools:ignore="MissingConstraints" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
